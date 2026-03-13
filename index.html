@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Penalty Shootout Streak</title>
+  <link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+  <div id="app">
+    <!-- HUD -->
+    <div id="hud">
+      <div class="hud-item">
+        <span class="hud-label">LEVEL</span>
+        <span id="hud-level">1</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">STREAK</span>
+        <span id="hud-streak">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">BEST</span>
+        <span id="hud-best">0</span>
+      </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="screen-start" class="screen active">
+      <div class="screen-content">
+        <h1>⚽ Penalty Shootout</h1>
+        <p class="subtitle">Beat the keeper — build your streak!</p>
+        <div class="controls-info">
+          <p><strong>Swipe</strong> — drag toward goal; length = power</p>
+          <p><strong>Charge</strong> — aim + hold to charge, release to shoot</p>
+          <p><strong>Zones</strong> — tap a 3×3 zone for a quick shot</p>
+          <p>Pick your control mode &amp; shooter in ⚙ Settings</p>
+        </div>
+        <button id="btn-start" class="btn btn-primary">KICK OFF</button>
+        <div id="best-display" class="best-display"></div>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="screen-game" class="screen">
+      <div id="pitch">
+        <canvas id="gameCanvas"></canvas>
+        <div id="aim-indicator"></div>
+        <div id="msg-overlay" class="msg-overlay hidden">
+          <span id="msg-text"></span>
+        </div>
+      </div>
+      <div id="level-badge">
+        <span id="level-name">Level 1</span>
+        <span id="level-desc"></span>
+        <span id="shooter-badge"></span>
+        <span id="mode-badge" class="mode-indicator"></span>
+      </div>
+
+      <!-- Settings toggle -->
+      <button id="settings-btn" aria-label="Settings">⚙</button>
+      <div id="settings-panel" class="hidden">
+        <div class="setting-row">
+          <span class="setting-label">Control</span>
+          <div class="toggle-group">
+            <button class="tog" data-setting="controlMode" data-value="swipe"><span class="ctrl-key">A</span> Swipe</button>
+            <button class="tog tog-active" data-setting="controlMode" data-value="charge"><span class="ctrl-key">B</span> Charge</button>
+            <button class="tog" data-setting="controlMode" data-value="zones"><span class="ctrl-key">C</span> Zones</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">Shooter</span>
+          <div class="toggle-group">
+            <button class="tog tog-active" data-setting="shooter" data-value="0">Clinical</button>
+            <button class="tog" data-setting="shooter" data-value="1">Rocket</button>
+            <button class="tog" data-setting="shooter" data-value="2">Magician</button>
+          </div>
+        </div>
+        <div id="shooter-stats" class="shooter-stats">
+          <div class="stat-bar-row">
+            <span class="stat-bar-lbl">ACC</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill" id="stat-accuracy"></div></div>
+          </div>
+          <div class="stat-bar-row">
+            <span class="stat-bar-lbl">PWR</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill" id="stat-power"></div></div>
+          </div>
+          <div class="stat-bar-row">
+            <span class="stat-bar-lbl">CRV</span>
+            <div class="stat-bar-bg"><div class="stat-bar-fill" id="stat-curve"></div></div>
+          </div>
+          <div id="shooter-desc-text" class="shooter-desc-text"></div>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">Pace</span>
+          <div class="toggle-group">
+            <button class="tog tog-active" data-setting="pace" data-value="normal">Normal</button>
+            <button class="tog" data-setting="pace" data-value="slow">Slow</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">Keeper</span>
+          <div class="toggle-group">
+            <button class="tog tog-active" data-setting="keeperDiff" data-value="standard">Standard</button>
+            <button class="tog" data-setting="keeperDiff" data-value="relaxed">Relaxed</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="screen-gameover" class="screen">
+      <div class="screen-content">
+        <h2 id="go-title">GAME OVER</h2>
+        <div class="go-stats">
+          <div class="stat-row">
+            <span>Streak</span>
+            <span id="go-streak">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Best Streak</span>
+            <span id="go-best">0</span>
+          </div>
+          <div class="stat-row">
+            <span>Level Reached</span>
+            <span id="go-level">1</span>
+          </div>
+        </div>
+        <button id="btn-restart" class="btn btn-primary">TRY AGAIN</button>
+        <button id="btn-menu" class="btn btn-secondary">MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=6"></script>
+</body>
+</html>
